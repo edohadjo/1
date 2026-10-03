@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0c0d12">
+  <title>Accueil - VidoZone</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       EN-TÊTE SUPÉRIEURE (HEADER)
+       ========================================================================== -->
+  <header class="vz-header">
+    <div class="vz-brand" onclick="window.scrollTo({top:0, behavior:'smooth'})" style="cursor:pointer;">
+      <div class="vz-logo-badge">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zm0 9l-8.5-4.25L12 4.5l8.5 2.25L12 11zm-9 3l9 4.5 9-4.5V17l-9 4.5L3 17v-3z"/>
+          <path d="M10 8.5v7l6-3.5-6-3.5z" fill="#fff"/>
+        </svg>
+      </div>
+      <span class="vz-brand-name">VidoZone <span class="vz-brand-dot"></span></span>
+    </div>
+
+    <div class="vz-header-actions">
+      <!-- Bouton Recherche -->
+      <button class="vz-icon-btn" id="vzHeaderSearchBtn" aria-label="Recherche">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      </button>
+
+      <!-- Bouton Notifications -->
+      <button class="vz-icon-btn" onclick="window.location.href='notifications.html'" aria-label="Notifications">
+        <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+        <span class="vz-badge-dot"></span>
+      </button>
+
+      <!-- Avatar Profil -->
+      <a href="profile.html" class="vz-avatar-header" aria-label="Mon Profil">
+        <img id="vzHeaderAvatarImg" src="assets/logo.png" alt="Profil">
+      </a>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       BARRE DE RECHERCHE OVERLAY (DÉPLIABLE)
+       ========================================================================== -->
+  <div class="vz-search-bar-wrap" id="vzSearchOverlay" style="display:none;">
+    <div class="vz-search-input-box">
+      <svg style="width:18px;height:18px;fill:var(--vz-text-muted);" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      <input type="text" id="vzSearchInput" placeholder="Rechercher des vidéos, créateurs, musique...">
+      <button type="button" id="vzCloseSearchBtn" style="color:var(--vz-text-muted);font-size:18px;">&times;</button>
+    </div>
+    
+    <!-- Historique des recherches -->
+    <div id="vzSearchHistorySection">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px 4px;">
+        <span style="font-size:12px;font-weight:700;color:var(--vz-text-muted);text-transform:uppercase;">Recherches récentes</span>
+        <button id="vzClearHistoryBtn" style="font-size:11px;color:var(--vz-primary);font-weight:600;">Effacer</button>
+      </div>
+      <div class="vz-search-chips" id="vzSearchChipsList"></div>
+    </div>
+
+    <!-- Résultats de recherche -->
+    <div id="vzSearchResultsFeed" style="padding-top:10px;"></div>
+  </div>
+
+  <!-- ==========================================================================
+       BARRE DES CATÉGORIES
+       ========================================================================== -->
+  <nav class="vz-categories-bar" id="vzCategoriesBar"></nav>
+
+  <!-- ==========================================================================
+       SECTION SHORTS EN ACCUEIL
+       ========================================================================== -->
+  <section class="vz-shorts-preview-section">
+    <div class="vz-section-header">
+      <div class="vz-section-title">
+        <svg viewBox="0 0 24 24"><path d="M17.77 10.32l-1.2-.5L18 9.06c1.84-.96 2.53-3.23 1.56-5.06s-3.24-2.53-5.07-1.56L6 6.94c-1.29.68-2.07 2.04-2 3.49.07 1.42.93 2.67 2.22 3.25.03.01 1.2.5 1.2.5L6 14.93c-1.83.97-2.53 3.24-1.56 5.07.97 1.83 3.24 2.53 5.07 1.56l8.5-4.5c1.29-.68 2.06-2.04 1.99-3.49-.07-1.42-.94-2.68-2.23-3.25zM10 14.5v-5l4.5 2.5-4.5 2.5z"/></svg>
+        <span>Shorts VidoZone</span>
+      </div>
+      <a href="shorts.html" style="font-size:12px;color:var(--vz-primary);font-weight:700;">Voir tout &rarr;</a>
+    </div>
+    <div class="vz-shorts-horizontal-scroll" id="vzShortsPreviewList"></div>
+  </section>
+
+  <!-- ==========================================================================
+       FLUX PRINCIPAL DE VIDÉOS
+       ========================================================================== -->
+  <main class="vz-feed-container" id="vzVideoFeed"></main>
+
+  <!-- ==========================================================================
+       BARRE DE NAVIGATION INFÉRIEURE (BOTTOM NAV)
+       ========================================================================== -->
+  <nav class="vz-bottom-nav">
+    <a href="home.html" class="vz-nav-item active">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>Accueil</span>
+    </a>
+    <a href="shorts.html" class="vz-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M17.77 10.32l-1.2-.5L18 9.06c1.84-.96 2.53-3.23 1.56-5.06s-3.24-2.53-5.07-1.56L6 6.94c-1.29.68-2.07 2.04-2 3.49.07 1.42.93 2.67 2.22 3.25.03.01 1.2.5 1.2.5L6 14.93c-1.83.97-2.53 3.24-1.56 5.07.97 1.83 3.24 2.53 5.07 1.56l8.5-4.5c1.29-.68 2.06-2.04 1.99-3.49-.07-1.42-.94-2.68-2.23-3.25zM10 14.5v-5l4.5 2.5-4.5 2.5z"/></svg>
+      <span>Shorts</span>
+    </a>
+    <a href="upload.html" class="vz-nav-item vz-nav-upload">
+      <div class="vz-upload-circle">
+        <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+      </div>
+      <span style="margin-top:2px;">Publier</span>
+    </a>
+    <a href="notifications.html" class="vz-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+      <span>Notifs</span>
+    </a>
+    <a href="profile.html" class="vz-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      <span>Profil</span>
+    </a>
+  </nav>
+
+  <script src="js/firebase-config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/home.js"></script>
+  <script>
+    // Gestion de l'affichage de la barre de recherche overlay
+    const searchBtn = document.getElementById("vzHeaderSearchBtn");
+    const searchOverlay = document.getElementById("vzSearchOverlay");
+    const closeSearchBtn = document.getElementById("vzCloseSearchBtn");
+    const searchInput = document.getElementById("vzSearchInput");
+
+    if (searchBtn && searchOverlay) {
+      searchBtn.addEventListener("click", () => {
+        searchOverlay.style.display = searchOverlay.style.display === "none" ? "block" : "none";
+        if (searchOverlay.style.display === "block" && searchInput) {
+          searchInput.focus();
+        }
+      });
+    }
+
+    if (closeSearchBtn && searchOverlay) {
+      closeSearchBtn.addEventListener("click", () => {
+        searchOverlay.style.display = "none";
+        const feed = document.getElementById("vzSearchResultsFeed");
+        if (feed) feed.innerHTML = "";
+        if (searchInput) searchInput.value = "";
+      });
+    }
+  </script>
+</body>
+</html>

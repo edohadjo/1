@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0c0d12">
+  <title>Paramètres - VidoZone</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       HEADER PARAMÈTRES
+       ========================================================================== -->
+  <header class="vz-header">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="vz-icon-btn" onclick="window.history.back()" aria-label="Retour">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      </button>
+      <h2 style="font-size:17px;font-weight:800;">Paramètres</h2>
+    </div>
+  </header>
+
+  <main style="padding: 68px 16px 80px; max-width: 600px; margin: 0 auto;">
+
+    <!-- Section Apparence -->
+    <div style="margin-bottom:24px;">
+      <h3 style="font-size:12px;font-weight:700;color:var(--vz-text-muted);text-transform:uppercase;margin-bottom:10px;">Apparence</h3>
+      <div class="vz-profile-card" style="margin:0;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="font-size:14px;font-weight:700;">Mode Sombre / Clair</div>
+          <div style="font-size:12px;color:var(--vz-text-muted);">Adaptez l'éclairage de l'interface</div>
+        </div>
+        <button class="vz-btn vz-btn-secondary vz-btn-sm" onclick="VidoZone.toggleTheme()">Basculer</button>
+      </div>
+    </div>
+
+    <!-- Section Préférences de Lecture -->
+    <div style="margin-bottom:24px;">
+      <h3 style="font-size:12px;font-weight:700;color:var(--vz-text-muted);text-transform:uppercase;margin-bottom:10px;">Lecture & Réseau</h3>
+      <div class="vz-profile-card" style="margin:0;padding:14px 16px;display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:14px;font-weight:700;">Qualité vidéo par défaut</div>
+            <div style="font-size:12px;color:var(--vz-text-muted);">Ajuste la résolution selon le réseau</div>
+          </div>
+          <select class="vz-select" style="width:auto;height:36px;font-size:12px;padding:0 8px;">
+            <option>Automatique (Recommandé)</option>
+            <option>1080p Full HD</option>
+            <option>720p HD</option>
+            <option>480p Économie de données</option>
+          </select>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--vz-border-light);padding-top:12px;">
+          <div>
+            <div style="font-size:14px;font-weight:700;">Lecture automatique</div>
+            <div style="font-size:12px;color:var(--vz-text-muted);">Lancer la vidéo suivante à la fin</div>
+          </div>
+          <input type="checkbox" class="vz-checkbox" checked>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section Cache & Stockage -->
+    <div style="margin-bottom:24px;">
+      <h3 style="font-size:12px;font-weight:700;color:var(--vz-text-muted);text-transform:uppercase;margin-bottom:10px;">Stockage</h3>
+      <div class="vz-profile-card" style="margin:0;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <div style="font-size:14px;font-weight:700;">Vider le cache local</div>
+          <div style="font-size:12px;color:var(--vz-text-muted);">Libère de l'espace sur l'appareil</div>
+        </div>
+        <button class="vz-btn vz-btn-secondary vz-btn-sm" onclick="localStorage.removeItem('vz_watch_history'); VidoZone.showToast('Cache nettoyé avec succès !', 'success');">
+          Nettoyer
+        </button>
+      </div>
+    </div>
+
+    <!-- Section À Propos -->
+    <div style="margin-bottom:24px;">
+      <h3 style="font-size:12px;font-weight:700;color:var(--vz-text-muted);text-transform:uppercase;margin-bottom:10px;">À propos de VidoZone</h3>
+      <div class="vz-profile-card" style="margin:0;padding:14px 16px;display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;justify-content:space-between;">
+          <span style="font-size:13px;color:var(--vz-text-secondary);">Version de l'application</span>
+          <span style="font-size:13px;font-weight:700;">2.4.0 (Build 2026)</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;">
+          <span style="font-size:13px;color:var(--vz-text-secondary);">Moteur</span>
+          <span style="font-size:13px;font-weight:700;">VidoZone Ultra Fast Engine</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;">
+          <span style="font-size:13px;color:var(--vz-text-secondary);">Slogan</span>
+          <span style="font-size:13px;font-weight:700;color:var(--vz-primary);">Regarde. Crée. Partage.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bouton Déconnexion -->
+    <button class="vz-btn vz-btn-full" style="background:rgba(255,23,68,0.12);color:var(--vz-primary);border:1px solid rgba(255,23,68,0.3);font-weight:700;" onclick="VZ_Auth.logout()">
+      Se déconnecter
+    </button>
+  </main>
+
+  <!-- ==========================================================================
+       BARRE DE NAVIGATION INFÉRIEURE
+       ========================================================================== -->
+  <nav class="vz-bottom-nav">
+    <a href="home.html" class="vz-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>Accueil</span>
+    </a>
+    <a href="shorts.html" class="vz-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M17.77 10.32l-1.2-.5L18 9.06c1.84-.96 2.53-3.23 1.56-5.06s-3.24-2.53-5.07-1.56L6 6.94c-1.29.68-2.07 2.04-2 3.49.07 1.42.93 2.67 2.22 3.25.03.01 1.2.5 1.2.5L6 14.93c-1.83.97-2.53 3.24-1.56 5.07.97 1.83 3.24 2.53 5.07 1.56l8.5-4.5c1.29-.68 2.06-2.04 1.99-3.49-.07-1.42-.94-2.68-2.23-3.25zM10 14.5v-5l4.5 2.5-4.5 2.5z"/></svg>
+      <span>Shorts</span>
+    </a>
+    <a href="upload.html" class="vz-nav-item vz-nav-upload">
+      <div class="vz-upload-circle">
+        <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+      </div>
+      <span style="margin-top:2px;">Publier</span>
+    </a>
+    <a href="notifications.html" class="vz-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+      <span>Notifs</span>
+    </a>
+    <a href="profile.html" class="vz-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      <span>Profil</span>
+    </a>
+  </nav>
+
+  <script src="js/firebase-config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

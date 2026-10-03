@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <title>Lecteur - VidoZone</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/player.css">
+</head>
+<body class="vz-player-page">
+
+  <!-- ==========================================================================
+       LECTEUR VIDÉO PRINCIPAL AVEC CONTRÔLES TACTILES
+       ========================================================================== -->
+  <div class="vz-video-player-wrapper" id="vzVideoPlayerWrapper">
+    <video class="vz-video-element" id="vzVideoPlayer" playsinline preload="auto"></video>
+
+    <!-- Contrôles superposés personnalisés -->
+    <div class="vz-player-controls-overlay" id="vzControlsOverlay">
+      <!-- Haut : Retour & Paramètres rapides -->
+      <div class="vz-player-top-controls">
+        <button class="vz-player-btn" onclick="window.history.back()" aria-label="Retour">
+          <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        </button>
+        <button class="vz-player-btn" id="vzMuteBtn" onclick="VZ_Player.toggleMute()" aria-label="Son">
+          <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+        </button>
+      </div>
+
+      <!-- Centre : Saut -10s, Play/Pause, Saut +10s -->
+      <div class="vz-player-center-controls">
+        <button class="vz-player-btn" onclick="VZ_Player.seekRelative(-10)" aria-label="-10s">
+          <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8zm-1.1 11h-.8v-3.3h-.9v-.7h1.7v4zm3.6-2.1c0 .8-.5 1.3-1.3 1.3s-1.3-.5-1.3-1.3v-1.8c0-.8.5-1.3 1.3-1.3s1.3.5 1.3 1.3v1.8zm-.8-1.9c0-.4-.2-.6-.5-.6s-.5.2-.5.6v2c0 .4.2.6.5.6s.5-.2.5-.6v-2z"/></svg>
+        </button>
+        <button class="vz-player-btn-large" id="vzCenterPlayBtn" onclick="VZ_Player.togglePlay()" aria-label="Lire/Pause">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button class="vz-player-btn" onclick="VZ_Player.seekRelative(10)" aria-label="+10s">
+          <svg viewBox="0 0 24 24"><path d="M12 5V1l5 5-5 5V7c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6h2c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8zm-1.1 11h-.8v-3.3h-.9v-.7h1.7v4zm3.6-2.1c0 .8-.5 1.3-1.3 1.3s-1.3-.5-1.3-1.3v-1.8c0-.8.5-1.3 1.3-1.3s1.3.5 1.3 1.3v1.8zm-.8-1.9c0-.4-.2-.6-.5-.6s-.5.2-.5.6v2c0 .4.2.6.5.6s.5-.2.5-.6v-2z"/></svg>
+        </button>
+      </div>
+
+      <!-- Bas : Barre de temps, Timer & Plein écran -->
+      <div class="vz-player-bottom-controls">
+        <div class="vz-timeline-slider-wrap" id="vzTimelineWrap">
+          <div class="vz-timeline-track" id="vzTimelineTrack">
+            <div class="vz-timeline-progress" id="vzTimelineProgress"></div>
+          </div>
+          <div class="vz-timeline-scrubber" id="vzTimelineScrubber"></div>
+        </div>
+
+        <div class="vz-player-status-row">
+          <div class="vz-player-status-left">
+            <span id="vzTimeDisplay">00:00 / 00:00</span>
+          </div>
+          <button class="vz-player-btn" style="width:28px;height:28px;background:none;" onclick="VZ_Player.toggleFullscreen()" aria-label="Plein écran">
+            <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       DÉTAILS VIDÉO & ACTIONS
+       ========================================================================== -->
+  <div class="vz-player-content">
+    <h1 class="vz-player-video-title" id="vzPlayerTitle">Chargement...</h1>
+    <div class="vz-player-stats-bar" id="vzPlayerStats"></div>
+
+    <!-- Barre Créateur & Abonnement -->
+    <div class="vz-player-creator-bar">
+      <div class="vz-creator-profile-link" onclick="window.location.href='profile.html'">
+        <div class="vz-creator-avatar">
+          <img id="vzCreatorAvatar" src="assets/logo.png" alt="Créateur">
+        </div>
+        <div>
+          <div style="font-weight:700;font-size:14px;" id="vzCreatorName">VidoZone Creator</div>
+          <div class="vz-creator-sub-count" id="vzSubCount">45.2k abonnés</div>
+        </div>
+      </div>
+      <button class="vz-btn-subscribe" id="vzSubscribeBtn" onclick="VZ_Player.toggleSubscribe()">
+        S'abonner
+      </button>
+    </div>
+
+    <!-- Barre des Boutons d'Action (Like, Dislike, Partager, etc.) -->
+    <div class="vz-action-buttons-row">
+      <button class="vz-action-btn-pill" id="vzLikeBtn" onclick="VZ_Player.toggleLike()">
+        <svg viewBox="0 0 24 24"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>
+        <span id="vzLikeCount">0</span>
+      </button>
+
+      <button class="vz-action-btn-pill" id="vzDislikeBtn" onclick="VZ_Player.toggleDislike()">
+        <svg viewBox="0 0 24 24"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg>
+      </button>
+
+      <button class="vz-action-btn-pill" onclick="VZ_Player.shareVideo()">
+        <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+        <span>Partager</span>
+      </button>
+
+      <button class="vz-action-btn-pill" onclick="VZ_Player.downloadVideo()">
+        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        <span>Télécharger</span>
+      </button>
+    </div>
+
+    <!-- Description Déroulante -->
+    <div class="vz-description-card" id="vzDescCard" onclick="this.classList.toggle('expanded')">
+      <div class="vz-description-header">
+        <span>Description de la vidéo</span>
+        <span style="font-size:11px;color:var(--vz-primary);">Afficher plus ▼</span>
+      </div>
+      <p class="vz-description-text" id="vzDescriptionText"></p>
+    </div>
+
+    <!-- Section Commentaires -->
+    <section class="vz-comments-section">
+      <div class="vz-comments-header">
+        <h3 class="vz-comments-count" id="vzCommentsCount">0 commentaire</h3>
+      </div>
+
+      <!-- Saisie d'un nouveau commentaire -->
+      <div class="vz-comment-input-wrap">
+        <div class="vz-comment-field-container">
+          <textarea class="vz-comment-textarea" id="vzCommentInput" placeholder="Ajouter un commentaire constructif..." maxlength="500"></textarea>
+          <div class="vz-comment-input-footer">
+            <span class="vz-char-counter" id="vzCharCounter">0 / 500</span>
+            <button class="vz-btn vz-btn-primary vz-btn-sm" id="vzPostCommentBtn">Publier</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Liste des commentaires -->
+      <div class="vz-comments-list" id="vzCommentsList"></div>
+    </section>
+
+    <!-- Vidéos Suggérées -->
+    <div style="margin-top:24px;">
+      <h3 style="font-size:16px;font-weight:800;margin-bottom:14px;">À suivre ensuite</h3>
+      <div id="vzRecommendedList" style="display:flex;flex-direction:column;gap:16px;"></div>
+    </div>
+  </div>
+
+  <!-- Barre de navigation inférieure -->
+  <nav class="vz-bottom-nav">
+    <a href="home.html" class="vz-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>Accueil</span>
+    </a>
+    <a href="shorts.html" class="vz-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M17.77 10.32l-1.2-.5L18 9.06c1.84-.96 2.53-3.23 1.56-5.06s-3.24-2.53-5.07-1.56L6 6.94c-1.29.68-2.07 2.04-2 3.49.07 1.42.93 2.67 2.22 3.25.03.01 1.2.5 1.2.5L6 14.93c-1.83.97-2.53 3.24-1.56 5.07.97 1.83 3.24 2.53 5.07 1.56l8.5-4.5c1.29-.68 2.06-2.04 1.99-3.49-.07-1.42-.94-2.68-2.23-3.25zM10 14.5v-5l4.5 2.5-4.5 2.5z"/></svg>
+      <span>Shorts</span>
+    </a>
+    <a href="upload.html" class="vz-nav-item vz-nav-upload">
+      <div class="vz-upload-circle">
+        <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+      </div>
+      <span style="margin-top:2px;">Publier</span>
+    </a>
+    <a href="notifications.html" class="vz-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+      <span>Notifs</span>
+    </a>
+    <a href="profile.html" class="vz-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      <span>Profil</span>
+    </a>
+  </nav>
+
+  <script src="js/firebase-config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/comments.js"></script>
+  <script src="js/player.js"></script>
+</body>
+</html>

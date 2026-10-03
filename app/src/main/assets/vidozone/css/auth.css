@@ -1,0 +1,325 @@
+/* ==========================================================================
+   VIDOZONE - AUTH & ONBOARDING CSS
+   Splash, Bienvenue, Inscription, Connexion
+   ========================================================================== */
+
+/* Page d'authentification container */
+.vz-auth-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 20px calc(var(--vz-safe-bottom) + 24px);
+  background: radial-gradient(circle at 50% 15%, rgba(255, 23, 68, 0.15) 0%, transparent 60%),
+              var(--vz-bg);
+}
+
+/* ==========================================================================
+   1. ÉCRAN SPLASH
+   ========================================================================== */
+.vz-splash-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--vz-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.vz-splash-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.vz-splash-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: vzZoomIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.vz-splash-logo-container {
+  width: 96px;
+  height: 96px;
+  border-radius: 28px;
+  background: var(--vz-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 40px var(--vz-primary-glow);
+  position: relative;
+  margin-bottom: 24px;
+  animation: vzPulseGlow 2.5s infinite;
+}
+
+.vz-splash-logo-container svg {
+  width: 52px;
+  height: 52px;
+  fill: #ffffff;
+}
+
+.vz-splash-title {
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  background: var(--vz-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 6px;
+}
+
+.vz-splash-slogan {
+  font-size: 15px;
+  color: var(--vz-text-secondary);
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.vz-splash-loader {
+  margin-top: 48px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.08);
+  border-top-color: var(--vz-primary);
+  animation: vzSpin 0.9s linear infinite;
+}
+
+@keyframes vzSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes vzPulseGlow {
+  0%, 100% {
+    box-shadow: 0 10px 40px var(--vz-primary-glow);
+  }
+  50% {
+    box-shadow: 0 10px 60px rgba(255, 23, 68, 0.65);
+  }
+}
+
+@keyframes vzZoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ==========================================================================
+   2. ÉCRAN DE BIENVENUE
+   ========================================================================== */
+.vz-welcome-hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 10px 20px;
+}
+
+.vz-welcome-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 24px;
+  background: var(--vz-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 30px var(--vz-primary-glow);
+  margin-bottom: 24px;
+}
+
+.vz-welcome-logo svg {
+  width: 44px;
+  height: 44px;
+  fill: #fff;
+}
+
+.vz-welcome-title {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  line-height: 1.25;
+}
+
+.vz-welcome-desc {
+  font-size: 15px;
+  color: var(--vz-text-secondary);
+  line-height: 1.5;
+  max-width: 320px;
+  margin-bottom: 30px;
+}
+
+.vz-welcome-actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   3 & 4. FORMULAIRES INSCRIPTION & CONNEXION
+   ========================================================================== */
+.vz-auth-header {
+  padding: 20px 0 24px;
+}
+
+.vz-auth-back-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--vz-surface);
+  border: 1px solid var(--vz-border);
+  color: var(--vz-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.vz-auth-header h1 {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.vz-auth-header p {
+  color: var(--vz-text-secondary);
+  font-size: 14px;
+}
+
+.vz-auth-form {
+  flex: 1;
+}
+
+.vz-avatar-picker-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  background: var(--vz-surface);
+  padding: 14px;
+  border-radius: var(--vz-radius-md);
+  border: 1px dashed var(--vz-border);
+}
+
+.vz-avatar-preview {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--vz-surface-hover);
+  border: 2px solid var(--vz-primary);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vz-text-muted);
+}
+
+.vz-avatar-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vz-avatar-picker-btn {
+  font-size: 13px;
+  color: var(--vz-primary);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Indicateur de force du mot de passe */
+.vz-password-strength {
+  display: flex;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.vz-strength-bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--vz-border);
+  transition: background-color 0.3s ease;
+}
+
+.vz-strength-bar.active-weak {
+  background-color: var(--vz-error);
+}
+
+.vz-strength-bar.active-medium {
+  background-color: var(--vz-warning);
+}
+
+.vz-strength-bar.active-strong {
+  background-color: var(--vz-success);
+}
+
+.vz-password-help {
+  font-size: 11px;
+  color: var(--vz-text-muted);
+  margin-top: 4px;
+}
+
+/* Ligne "Rester connecté" & "Mot de passe oublié" */
+.vz-auth-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0 24px;
+  font-size: 13px;
+}
+
+.vz-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--vz-text-secondary);
+  cursor: pointer;
+}
+
+.vz-checkbox {
+  accent-color: var(--vz-primary);
+  width: 16px;
+  height: 16px;
+}
+
+.vz-auth-link {
+  color: var(--vz-primary);
+  font-weight: 600;
+}
+
+.vz-auth-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--vz-text-secondary);
+}
+
+.vz-auth-footer a {
+  color: var(--vz-primary);
+  font-weight: 700;
+  margin-left: 4px;
+}
+
+.vz-loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: vzSpin 0.8s linear infinite;
+}

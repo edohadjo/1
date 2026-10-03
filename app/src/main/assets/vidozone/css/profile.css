@@ -1,0 +1,353 @@
+/* ==========================================================================
+   VIDOZONE - PROFIL, SHORTS PLEIN ÉCRAN & PUBLICATION (PROFILE CSS)
+   ========================================================================== */
+
+/* ==========================================================================
+   PROFIL UTILISATEUR
+   ========================================================================== */
+.vz-profile-page {
+  padding-bottom: calc(var(--vz-nav-height) + var(--vz-safe-bottom) + 20px);
+}
+
+.vz-profile-banner {
+  height: 120px;
+  background: var(--vz-gradient);
+  position: relative;
+  opacity: 0.9;
+}
+
+.vz-profile-header-card {
+  padding: 0 16px;
+  position: relative;
+  margin-top: -45px;
+  margin-bottom: 20px;
+}
+
+.vz-profile-avatar-wrap {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 4px solid var(--vz-bg);
+  background: var(--vz-surface);
+  overflow: hidden;
+  box-shadow: var(--vz-shadow-md);
+  margin-bottom: 12px;
+}
+
+.vz-profile-avatar-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vz-profile-info {
+  margin-bottom: 18px;
+}
+
+.vz-profile-name {
+  font-size: 22px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vz-profile-handle {
+  font-size: 14px;
+  color: var(--vz-primary);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.vz-profile-bio {
+  font-size: 14px;
+  color: var(--vz-text-secondary);
+  line-height: 1.45;
+  margin-bottom: 16px;
+}
+
+/* Statistiques du profil */
+.vz-profile-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  background: var(--vz-surface);
+  padding: 14px;
+  border-radius: var(--vz-radius-md);
+  border: 1px solid var(--vz-border);
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.vz-stat-item-num {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--vz-text-primary);
+}
+
+.vz-stat-item-label {
+  font-size: 11px;
+  color: var(--vz-text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* Onglets du profil */
+.vz-profile-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--vz-border);
+  margin-bottom: 16px;
+}
+
+.vz-profile-tab-btn {
+  flex: 1;
+  padding: 12px 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vz-text-muted);
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.vz-profile-tab-btn.active {
+  color: var(--vz-primary);
+  border-bottom-color: var(--vz-primary);
+}
+
+/* Grille de médias du profil */
+.vz-profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 0 16px;
+}
+
+.vz-profile-grid.shorts-mode {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+/* ==========================================================================
+   PAGE PUBLIER / UPLOAD
+   ========================================================================== */
+.vz-upload-page {
+  padding: 16px 16px calc(var(--vz-nav-height) + var(--vz-safe-bottom) + 30px);
+}
+
+.vz-upload-card {
+  background: var(--vz-surface);
+  border-radius: var(--vz-radius-lg);
+  padding: 20px;
+  border: 1px solid var(--vz-border);
+  margin-bottom: 20px;
+}
+
+.vz-dropzone {
+  border: 2px dashed var(--vz-border);
+  border-radius: var(--vz-radius-md);
+  padding: 30px 16px;
+  text-align: center;
+  background: var(--vz-bg-elevated);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 16px;
+}
+
+.vz-dropzone:hover, .vz-dropzone.dragover {
+  border-color: var(--vz-primary);
+  background: var(--vz-primary-soft);
+}
+
+.vz-dropzone-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--vz-primary);
+  margin: 0 auto 12px;
+}
+
+.vz-dropzone-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+/* Aperçu vidéo sélectionnée */
+.vz-preview-video-container {
+  display: none;
+  width: 100%;
+  border-radius: var(--vz-radius-md);
+  overflow: hidden;
+  background: #000;
+  margin-bottom: 16px;
+}
+
+.vz-preview-video-container.active {
+  display: block;
+}
+
+.vz-preview-video-container video {
+  width: 100%;
+  max-height: 240px;
+}
+
+/* Barre de progression d'upload */
+.vz-upload-progress-wrap {
+  display: none;
+  margin: 16px 0;
+  background: var(--vz-surface);
+  padding: 14px;
+  border-radius: var(--vz-radius-md);
+  border: 1px solid var(--vz-border);
+}
+
+.vz-upload-progress-wrap.active {
+  display: block;
+}
+
+.vz-progress-bar-container {
+  height: 8px;
+  background: var(--vz-border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.vz-progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--vz-gradient);
+  transition: width 0.2s linear;
+}
+
+/* ==========================================================================
+   SECTION SHORTS (PLEIN ÉCRAN VERTICAL MOBILE)
+   ========================================================================== */
+.vz-shorts-screen {
+  position: fixed;
+  inset: 0;
+  bottom: calc(var(--vz-nav-height) + var(--vz-safe-bottom));
+  background: #000;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  z-index: 50;
+}
+
+.vz-short-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  background: #000;
+  overflow: hidden;
+}
+
+.vz-short-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vz-short-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, transparent 40%, transparent 60%, rgba(0, 0, 0, 0.85) 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 20px 16px;
+  pointer-events: none;
+}
+
+.vz-short-info-left {
+  flex: 1;
+  max-width: 80%;
+  pointer-events: auto;
+}
+
+.vz-short-creator-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.vz-short-creator-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid #fff;
+  overflow: hidden;
+}
+
+.vz-short-creator-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vz-short-creator-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.vz-short-title {
+  font-size: 14px;
+  color: #fff;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+/* Actions latérales droites des Shorts */
+.vz-short-actions-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  pointer-events: auto;
+}
+
+.vz-short-action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.vz-short-action-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(26, 29, 43, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.vz-short-action-item:active .vz-short-action-icon {
+  transform: scale(0.9);
+}
+
+.vz-short-action-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
+}
+
+.vz-short-action-item.liked .vz-short-action-icon svg {
+  fill: var(--vz-primary);
+}
+
+.vz-short-action-count {
+  font-size: 11px;
+  font-weight: 700;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}

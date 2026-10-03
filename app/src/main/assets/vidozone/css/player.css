@@ -1,0 +1,468 @@
+/* ==========================================================================
+   VIDOZONE - LECTEUR VIDÉO (PLAYER CSS)
+   Optimisé pour les smartphones Android & plein écran
+   ========================================================================== */
+
+.vz-player-page {
+  padding-bottom: calc(var(--vz-nav-height) + var(--vz-safe-bottom) + 30px);
+}
+
+/* ==========================================================================
+   LECTEUR VIDÉO PRINCIPAL
+   ========================================================================== */
+.vz-video-player-wrapper {
+  position: sticky;
+  top: var(--vz-safe-top);
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  z-index: 150;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.vz-video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Contrôles personnalisés superposés */
+.vz-player-controls-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, transparent 40%, transparent 60%, rgba(0, 0, 0, 0.85) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px 14px;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.vz-player-controls-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.vz-player-top-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vz-player-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(18, 20, 29, 0.7);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.vz-player-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Centre : Boutons Play/Pause & Saut 10s */
+.vz-player-center-controls {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.vz-player-btn-large {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--vz-gradient);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px var(--vz-primary-glow);
+  transform: scale(1);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.vz-player-btn-large:active {
+  transform: scale(0.9);
+}
+
+.vz-player-btn-large svg {
+  width: 28px;
+  height: 28px;
+  fill: #fff;
+}
+
+/* Barre de progression & Durée */
+.vz-player-bottom-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vz-timeline-slider-wrap {
+  position: relative;
+  width: 100%;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.vz-timeline-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.vz-timeline-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  background: var(--vz-primary);
+  border-radius: 2px;
+}
+
+.vz-timeline-scrubber {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+  left: 0%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.vz-player-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.vz-player-status-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   DÉTAILS VIDÉO & INFORMATIONS
+   ========================================================================== */
+.vz-player-content {
+  padding: 16px;
+}
+
+.vz-player-video-title {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
+
+.vz-player-stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--vz-text-muted);
+  margin-bottom: 16px;
+}
+
+/* Barre de Créateur & Abonnement */
+.vz-player-creator-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-top: 1px solid var(--vz-border-light);
+  border-bottom: 1px solid var(--vz-border-light);
+  margin-bottom: 16px;
+}
+
+.vz-creator-profile-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vz-creator-sub-count {
+  font-size: 12px;
+  color: var(--vz-text-muted);
+}
+
+.vz-btn-subscribe {
+  height: 38px;
+  padding: 0 18px;
+  border-radius: var(--vz-radius-pill);
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--vz-primary);
+  color: #fff;
+  box-shadow: 0 2px 10px var(--vz-primary-glow);
+  transition: all 0.2s ease;
+}
+
+.vz-btn-subscribe.subscribed {
+  background: var(--vz-surface);
+  color: var(--vz-text-secondary);
+  border: 1px solid var(--vz-border);
+  box-shadow: none;
+}
+
+/* Barre d'Actions (Like, Dislike, Partager, etc.) */
+.vz-action-buttons-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+
+.vz-action-buttons-row::-webkit-scrollbar {
+  display: none;
+}
+
+.vz-action-btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: var(--vz-radius-pill);
+  background: var(--vz-surface);
+  color: var(--vz-text-primary);
+  border: 1px solid var(--vz-border);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.vz-action-btn-pill svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.vz-action-btn-pill.liked {
+  color: var(--vz-primary);
+  border-color: var(--vz-primary);
+  background: var(--vz-primary-soft);
+}
+
+.vz-action-btn-pill.disliked {
+  color: var(--vz-text-muted);
+  border-color: var(--vz-text-muted);
+}
+
+/* Description Déroulante */
+.vz-description-card {
+  background: var(--vz-surface);
+  border-radius: var(--vz-radius-md);
+  padding: 14px;
+  border: 1px solid var(--vz-border);
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.vz-description-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.vz-description-text {
+  font-size: 13px;
+  color: var(--vz-text-secondary);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.vz-description-card.expanded .vz-description-text {
+  display: block;
+}
+
+/* ==========================================================================
+   SECTION COMMENTAIRES
+   ========================================================================== */
+.vz-comments-section {
+  background: var(--vz-bg-elevated);
+  border-radius: var(--vz-radius-lg);
+  padding: 16px;
+  border: 1px solid var(--vz-border);
+  margin-bottom: 24px;
+}
+
+.vz-comments-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.vz-comments-count {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/* Formulaire d'ajout de commentaire */
+.vz-comment-input-wrap {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.vz-comment-field-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vz-comment-textarea {
+  width: 100%;
+  background: var(--vz-surface);
+  border: 1.5px solid var(--vz-border);
+  border-radius: var(--vz-radius-md);
+  padding: 10px 14px;
+  color: var(--vz-text-primary);
+  font-size: 14px;
+  resize: none;
+  min-height: 44px;
+  max-height: 100px;
+}
+
+.vz-comment-textarea:focus {
+  border-color: var(--vz-primary);
+}
+
+.vz-comment-input-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vz-char-counter {
+  font-size: 11px;
+  color: var(--vz-text-muted);
+}
+
+/* Liste des commentaires */
+.vz-comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.vz-comment-item {
+  display: flex;
+  gap: 12px;
+}
+
+.vz-comment-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--vz-surface);
+  flex-shrink: 0;
+}
+
+.vz-comment-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vz-comment-body {
+  flex: 1;
+}
+
+.vz-comment-author-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+
+.vz-comment-author-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--vz-text-primary);
+}
+
+.vz-comment-date {
+  font-size: 11px;
+  color: var(--vz-text-muted);
+}
+
+.vz-comment-text {
+  font-size: 13.5px;
+  color: var(--vz-text-secondary);
+  line-height: 1.4;
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+
+.vz-comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--vz-text-muted);
+}
+
+.vz-comment-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--vz-text-muted);
+  cursor: pointer;
+}
+
+.vz-comment-action-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+.vz-comment-action-btn:hover {
+  color: var(--vz-primary);
+}
+
+.vz-comment-action-btn.delete {
+  color: var(--vz-error);
+}

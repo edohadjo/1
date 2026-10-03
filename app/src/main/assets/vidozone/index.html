@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0c0d12">
+  <title>VidoZone - Regarde. Crée. Partage.</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="no-nav">
+
+  <!-- ==========================================================================
+       1. ÉCRAN SPLASH
+       ========================================================================== -->
+  <div class="vz-splash-screen" id="vzSplashScreen">
+    <div class="vz-splash-content">
+      <div class="vz-splash-logo-container">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zm0 9l-8.5-4.25L12 4.5l8.5 2.25L12 11zm-9 3l9 4.5 9-4.5V17l-9 4.5L3 17v-3z"/>
+          <path d="M10 8.5v7l6-3.5-6-3.5z" fill="#fff"/>
+        </svg>
+      </div>
+      <h1 class="vz-splash-title">VidoZone</h1>
+      <p class="vz-splash-slogan">Regarde. Crée. Partage.</p>
+      <div class="vz-splash-loader"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       2. ÉCRAN DE BIENVENUE (AFFICHÉ SI NON CONNECTÉ)
+       ========================================================================== -->
+  <main class="vz-auth-page" id="vzWelcomePage" style="display: none;">
+    <div class="vz-welcome-hero">
+      <div class="vz-welcome-logo">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zm0 9l-8.5-4.25L12 4.5l8.5 2.25L12 11zm-9 3l9 4.5 9-4.5V17l-9 4.5L3 17v-3z"/>
+          <path d="M10 8.5v7l6-3.5-6-3.5z" fill="#fff"/>
+        </svg>
+      </div>
+      <h2 class="vz-welcome-title">Bienvenue sur VidoZone</h2>
+      <p class="vz-welcome-desc">
+        Regarde tes vidéos préférées, découvre de nouveaux créateurs et partage tes propres contenus.
+      </p>
+    </div>
+
+    <div class="vz-welcome-actions">
+      <button class="vz-btn vz-btn-primary vz-btn-full" onclick="window.location.href='login.html'">
+        Se connecter
+      </button>
+      <button class="vz-btn vz-btn-secondary vz-btn-full" onclick="window.location.href='register.html'">
+        Créer un compte
+      </button>
+      <button class="vz-btn vz-btn-full" style="color:var(--vz-text-muted);font-size:13px;height:40px;" onclick="window.location.href='home.html'">
+        Continuer en tant qu'invité &rarr;
+      </button>
+    </div>
+  </main>
+
+  <script src="js/firebase-config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const splash = document.getElementById("vzSplashScreen");
+      const welcome = document.getElementById("vzWelcomePage");
+
+      // Vérification de la session utilisateur
+      setTimeout(() => {
+        const user = VZ_Auth.getCurrentUser();
+        if (user) {
+          // Utilisateur déjà connecté -> redirection directe vers l'accueil
+          window.location.href = "home.html";
+        } else {
+          // Non connecté -> Affichage fluide de l'écran de bienvenue
+          splash.classList.add("fade-out");
+          welcome.style.display = "flex";
+        }
+      }, 1500);
+    });
+  </script>
+</body>
+</html>

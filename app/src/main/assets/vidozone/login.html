@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0c0d12">
+  <title>Connexion - VidoZone</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="no-nav">
+
+  <main class="vz-auth-page">
+    <div class="vz-auth-header">
+      <button class="vz-auth-back-btn" onclick="window.location.href='index.html'">
+        <svg style="width:20px;height:20px;fill:currentColor;" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      </button>
+      <h1>Bon retour !</h1>
+      <p>Connecte-toi pour retrouver tes abonnements et tes vidéos favorites.</p>
+    </div>
+
+    <form class="vz-auth-form" id="vzLoginForm" onsubmit="return false;">
+      <!-- E-mail -->
+      <div class="vz-form-group">
+        <label class="vz-label" for="vzLoginEmail">Adresse e-mail</label>
+        <div class="vz-input-wrap">
+          <span class="vz-input-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </span>
+          <input class="vz-input has-icon" type="email" id="vzLoginEmail" placeholder="jean@exemple.com" required>
+        </div>
+      </div>
+
+      <!-- Mot de passe -->
+      <div class="vz-form-group">
+        <label class="vz-label" for="vzLoginPassword">Mot de passe</label>
+        <div class="vz-input-wrap">
+          <span class="vz-input-icon">
+            <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          </span>
+          <input class="vz-input has-icon has-trailing-icon" type="password" id="vzLoginPassword" placeholder="Votre mot de passe" required>
+          <button type="button" class="vz-trailing-btn" id="vzTogglePasswordBtn">
+            <svg style="width:18px;height:18px;fill:currentColor;" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Options: Rester connecté & Mot de passe oublié -->
+      <div class="vz-auth-options">
+        <label class="vz-checkbox-label">
+          <input type="checkbox" id="vzRememberMe" class="vz-checkbox" checked>
+          <span>Rester connecté</span>
+        </label>
+        <a href="javascript:void(0)" class="vz-auth-link" id="vzForgotPasswordBtn">Mot de passe oublié ?</a>
+      </div>
+
+      <!-- Bouton Connexion -->
+      <button type="submit" class="vz-btn vz-btn-primary vz-btn-full" id="vzSubmitLoginBtn">
+        <span id="vzLoginBtnText">Se connecter</span>
+        <span id="vzLoginBtnLoader" class="vz-loading-spinner" style="display:none;"></span>
+      </button>
+    </form>
+
+    <div class="vz-auth-footer">
+      Pas encore de compte ? <a href="register.html">Créer un compte</a>
+    </div>
+  </main>
+
+  <script src="js/firebase-config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Toggle affichage mot de passe
+    const pwdInput = document.getElementById("vzLoginPassword");
+    const toggleBtn = document.getElementById("vzTogglePasswordBtn");
+    toggleBtn.addEventListener("click", () => {
+      pwdInput.type = pwdInput.type === "password" ? "text" : "password";
+    });
+
+    // Mot de passe oublié
+    const forgotBtn = document.getElementById("vzForgotPasswordBtn");
+    forgotBtn.addEventListener("click", async () => {
+      const email = prompt("Veuillez entrer votre adresse e-mail pour réinitialiser votre mot de passe :");
+      if (email) {
+        try {
+          await VZ_Auth.resetPassword(email);
+        } catch (e) {
+          VidoZone.showToast(e.message, "error");
+        }
+      }
+    });
+
+    // Soumission Connexion
+    const form = document.getElementById("vzLoginForm");
+    const submitBtn = document.getElementById("vzSubmitLoginBtn");
+    const btnText = document.getElementById("vzLoginBtnText");
+    const btnLoader = document.getElementById("vzLoginBtnLoader");
+    let isSubmitting = false;
+
+    form.addEventListener("submit", async () => {
+      if (isSubmitting) return;
+
+      const email = document.getElementById("vzLoginEmail").value.trim();
+      const password = document.getElementById("vzLoginPassword").value;
+      const rememberMe = document.getElementById("vzRememberMe").checked;
+
+      try {
+        isSubmitting = true;
+        submitBtn.disabled = true;
+        btnText.style.display = "none";
+        btnLoader.style.display = "inline-block";
+
+        await VZ_Auth.login({ email, password, rememberMe });
+        VidoZone.showToast("Connexion réussie !", "success");
+        setTimeout(() => {
+          window.location.href = "home.html";
+        }, 500);
+      } catch (err) {
+        VidoZone.showToast(err.message, "error");
+        isSubmitting = false;
+        submitBtn.disabled = false;
+        btnText.style.display = "inline";
+        btnLoader.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>

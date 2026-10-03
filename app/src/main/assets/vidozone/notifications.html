@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0c0d12">
+  <title>Notifications - VidoZone</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       HEADER NOTIFICATIONS
+       ========================================================================== -->
+  <header class="vz-header">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="vz-icon-btn" onclick="window.history.back()" aria-label="Retour">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      </button>
+      <h2 style="font-size:17px;font-weight:800;">Notifications</h2>
+    </div>
+    <button id="vzMarkAllReadBtn" style="font-size:12px;color:var(--vz-primary);font-weight:700;">Tout lire</button>
+  </header>
+
+  <!-- ==========================================================================
+       LISTE DES NOTIFICATIONS
+       ========================================================================== -->
+  <main style="padding-top:54px;padding-bottom:70px;">
+    <div id="vzNotifsList"></div>
+  </main>
+
+  <!-- ==========================================================================
+       BARRE DE NAVIGATION INFÉRIEURE
+       ========================================================================== -->
+  <nav class="vz-bottom-nav">
+    <a href="home.html" class="vz-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>Accueil</span>
+    </a>
+    <a href="shorts.html" class="vz-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M17.77 10.32l-1.2-.5L18 9.06c1.84-.96 2.53-3.23 1.56-5.06s-3.24-2.53-5.07-1.56L6 6.94c-1.29.68-2.07 2.04-2 3.49.07 1.42.93 2.67 2.22 3.25.03.01 1.2.5 1.2.5L6 14.93c-1.83.97-2.53 3.24-1.56 5.07.97 1.83 3.24 2.53 5.07 1.56l8.5-4.5c1.29-.68 2.06-2.04 1.99-3.49-.07-1.42-.94-2.68-2.23-3.25zM10 14.5v-5l4.5 2.5-4.5 2.5z"/></svg>
+      <span>Shorts</span>
+    </a>
+    <a href="upload.html" class="vz-nav-item vz-nav-upload">
+      <div class="vz-upload-circle">
+        <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+      </div>
+      <span style="margin-top:2px;">Publier</span>
+    </a>
+    <a href="notifications.html" class="vz-nav-item active">
+      <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+      <span>Notifs</span>
+    </a>
+    <a href="profile.html" class="vz-nav-item">
+      <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      <span>Profil</span>
+    </a>
+  </nav>
+
+  <script src="js/firebase-config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/notifications.js"></script>
+</body>
+</html>

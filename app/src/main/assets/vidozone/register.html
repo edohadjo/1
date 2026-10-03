@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0c0d12">
+  <title>Inscription - VidoZone</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="no-nav">
+
+  <main class="vz-auth-page">
+    <div class="vz-auth-header">
+      <button class="vz-auth-back-btn" onclick="window.location.href='index.html'">
+        <svg style="width:20px;height:20px;fill:currentColor;" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      </button>
+      <h1>Créer un compte</h1>
+      <p>Rejoins la communauté VidoZone dès aujourd'hui.</p>
+    </div>
+
+    <form class="vz-auth-form" id="vzRegisterForm" onsubmit="return false;">
+      <!-- Photo de profil facultative -->
+      <div class="vz-avatar-picker-wrap">
+        <div class="vz-avatar-preview" id="vzAvatarPreviewBox">
+          <svg style="width:28px;height:28px;fill:currentColor;" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <div>
+          <label for="vzAvatarInput" class="vz-avatar-picker-btn">Choisir une photo (optionnel)</label>
+          <input type="file" id="vzAvatarInput" accept="image/*" style="display:none;">
+          <p style="font-size:11px;color:var(--vz-text-muted);margin-top:2px;">Format JPG ou PNG</p>
+        </div>
+      </div>
+
+      <!-- Prénom & Nom -->
+      <div style="display:flex;gap:12px;">
+        <div class="vz-form-group" style="flex:1;">
+          <label class="vz-label" for="vzRegFirstName">Prénom</label>
+          <input class="vz-input" type="text" id="vzRegFirstName" placeholder="Ex: Jean" required>
+        </div>
+        <div class="vz-form-group" style="flex:1;">
+          <label class="vz-label" for="vzRegLastName">Nom</label>
+          <input class="vz-input" type="text" id="vzRegLastName" placeholder="Ex: Dupont" required>
+        </div>
+      </div>
+
+      <!-- Nom d'utilisateur -->
+      <div class="vz-form-group">
+        <label class="vz-label" for="vzRegUsername">Nom d'utilisateur</label>
+        <div class="vz-input-wrap">
+          <span class="vz-input-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+          </span>
+          <input class="vz-input has-icon" type="text" id="vzRegUsername" placeholder="jean_dupont" required>
+        </div>
+      </div>
+
+      <!-- E-mail -->
+      <div class="vz-form-group">
+        <label class="vz-label" for="vzRegEmail">Adresse e-mail</label>
+        <div class="vz-input-wrap">
+          <span class="vz-input-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </span>
+          <input class="vz-input has-icon" type="email" id="vzRegEmail" placeholder="jean@exemple.com" required>
+        </div>
+      </div>
+
+      <!-- Mot de passe -->
+      <div class="vz-form-group">
+        <label class="vz-label" for="vzRegPassword">Mot de passe</label>
+        <div class="vz-input-wrap">
+          <span class="vz-input-icon">
+            <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          </span>
+          <input class="vz-input has-icon" type="password" id="vzRegPassword" placeholder="Au moins 6 caractères" required>
+        </div>
+        <div class="vz-password-strength">
+          <div class="vz-strength-bar" id="strBar1"></div>
+          <div class="vz-strength-bar" id="strBar2"></div>
+          <div class="vz-strength-bar" id="strBar3"></div>
+        </div>
+        <span class="vz-password-help" id="strText">Sécurité : minimum 6 caractères avec chiffres</span>
+      </div>
+
+      <!-- Confirmation Mot de passe -->
+      <div class="vz-form-group">
+        <label class="vz-label" for="vzRegConfirmPassword">Confirmer le mot de passe</label>
+        <div class="vz-input-wrap">
+          <span class="vz-input-icon">
+            <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          </span>
+          <input class="vz-input has-icon" type="password" id="vzRegConfirmPassword" placeholder="Retapez le mot de passe" required>
+        </div>
+        <span class="vz-input-error" id="vzPasswordMatchError">Les deux mots de passe ne correspondent pas.</span>
+      </div>
+
+      <!-- Bouton d'action -->
+      <button type="submit" class="vz-btn vz-btn-primary vz-btn-full" id="vzSubmitRegisterBtn" style="margin-top:14px;">
+        <span id="vzRegBtnText">Créer mon compte</span>
+        <span id="vzRegBtnLoader" class="vz-loading-spinner" style="display:none;"></span>
+      </button>
+    </form>
+
+    <div class="vz-auth-footer">
+      Déjà membre ? <a href="login.html">Se connecter</a>
+    </div>
+  </main>
+
+  <script src="js/firebase-config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    let avatarBase64 = "";
+
+    // Prévisualisation de l'avatar
+    const avatarInput = document.getElementById("vzAvatarInput");
+    const previewBox = document.getElementById("vzAvatarPreviewBox");
+    if (avatarInput) {
+      avatarInput.addEventListener("change", (e) => {
+        if (e.target.files && e.target.files[0]) {
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            avatarBase64 = evt.target.result;
+            previewBox.innerHTML = `<img src="${avatarBase64}" alt="Avatar">`;
+          };
+          reader.readAsDataURL(e.target.files[0]);
+        }
+      });
+    }
+
+    // Indicateur de force mot de passe
+    const pwdInput = document.getElementById("vzRegPassword");
+    const bar1 = document.getElementById("strBar1");
+    const bar2 = document.getElementById("strBar2");
+    const bar3 = document.getElementById("strBar3");
+    const strText = document.getElementById("strText");
+
+    pwdInput.addEventListener("input", () => {
+      const score = VZ_Auth.evaluatePasswordStrength(pwdInput.value);
+      bar1.className = "vz-strength-bar";
+      bar2.className = "vz-strength-bar";
+      bar3.className = "vz-strength-bar";
+
+      if (score === 1) {
+        bar1.classList.add("active-weak");
+        strText.innerText = "Sécurité : Faible";
+        strText.style.color = "var(--vz-error)";
+      } else if (score === 2) {
+        bar1.classList.add("active-medium");
+        bar2.classList.add("active-medium");
+        strText.innerText = "Sécurité : Moyenne";
+        strText.style.color = "var(--vz-warning)";
+      } else if (score >= 3) {
+        bar1.classList.add("active-strong");
+        bar2.classList.add("active-strong");
+        bar3.classList.add("active-strong");
+        strText.innerText = "Sécurité : Excellente !";
+        strText.style.color = "var(--vz-success)";
+      } else {
+        strText.innerText = "Sécurité : minimum 6 caractères avec chiffres";
+        strText.style.color = "var(--vz-text-muted)";
+      }
+    });
+
+    // Soumission du formulaire
+    const form = document.getElementById("vzRegisterForm");
+    const submitBtn = document.getElementById("vzSubmitRegisterBtn");
+    const btnText = document.getElementById("vzRegBtnText");
+    const btnLoader = document.getElementById("vzRegBtnLoader");
+    let isSubmitting = false;
+
+    form.addEventListener("submit", async () => {
+      if (isSubmitting) return;
+
+      const firstName = document.getElementById("vzRegFirstName").value;
+      const lastName = document.getElementById("vzRegLastName").value;
+      const username = document.getElementById("vzRegUsername").value;
+      const email = document.getElementById("vzRegEmail").value;
+      const password = document.getElementById("vzRegPassword").value;
+      const confirmPassword = document.getElementById("vzRegConfirmPassword").value;
+      const matchError = document.getElementById("vzPasswordMatchError");
+
+      if (password !== confirmPassword) {
+        matchError.classList.add("visible");
+        return;
+      } else {
+        matchError.classList.remove("visible");
+      }
+
+      try {
+        isSubmitting = true;
+        submitBtn.disabled = true;
+        btnText.style.display = "none";
+        btnLoader.style.display = "inline-block";
+
+        await VZ_Auth.register({
+          firstName,
+          lastName,
+          username,
+          email,
+          password,
+          confirmPassword,
+          avatarBase64
+        });
+
+        VidoZone.showToast("Compte créé avec succès ! Bienvenue.", "success");
+        setTimeout(() => {
+          window.location.href = "home.html";
+        }, 600);
+      } catch (err) {
+        VidoZone.showToast(err.message, "error");
+        isSubmitting = false;
+        submitBtn.disabled = false;
+        btnText.style.display = "inline";
+        btnLoader.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>

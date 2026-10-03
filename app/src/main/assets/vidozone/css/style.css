@@ -1,0 +1,621 @@
+/* ==========================================================================
+   VIDOZONE - STYLES GLOBAUX & DESIGN SYSTEM
+   Couleur principale : #ff1744 | Thème Sombre Moderne & Épuré
+   ========================================================================== */
+
+:root {
+  --vz-primary: #ff1744;
+  --vz-primary-hover: #d50000;
+  --vz-primary-glow: rgba(255, 23, 68, 0.35);
+  --vz-primary-soft: rgba(255, 23, 68, 0.12);
+  --vz-accent: #ff5252;
+  --vz-gradient: linear-gradient(135deg, #ff1744 0%, #ff5252 60%, #e040fb 100%);
+  
+  /* Thème sombre par défaut */
+  --vz-bg: #0c0d12;
+  --vz-bg-elevated: #13151f;
+  --vz-surface: #1a1d2b;
+  --vz-surface-hover: #222638;
+  --vz-border: #262a3d;
+  --vz-border-light: rgba(255, 255, 255, 0.08);
+  
+  --vz-text-primary: #f5f6fa;
+  --vz-text-secondary: #9aa0b4;
+  --vz-text-muted: #676e85;
+  
+  --vz-success: #00e676;
+  --vz-warning: #ffab00;
+  --vz-error: #ff1744;
+  
+  --vz-radius-sm: 8px;
+  --vz-radius-md: 14px;
+  --vz-radius-lg: 20px;
+  --vz-radius-pill: 9999px;
+  
+  --vz-nav-height: 64px;
+  --vz-header-height: 56px;
+  
+  --vz-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --vz-shadow-md: 0 6px 20px rgba(0, 0, 0, 0.35);
+  --vz-shadow-glow: 0 4px 24px var(--vz-primary-glow);
+  --vz-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --vz-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --vz-safe-top: env(safe-area-inset-top, 0px);
+}
+
+/* Thème clair optionnel sélectionnable dans les paramètres */
+[data-theme="light"] {
+  --vz-bg: #f8f9fc;
+  --vz-bg-elevated: #ffffff;
+  --vz-surface: #f0f2f7;
+  --vz-surface-hover: #e4e7f0;
+  --vz-border: #dbe0ea;
+  --vz-border-light: rgba(0, 0, 0, 0.06);
+  --vz-text-primary: #12141a;
+  --vz-text-secondary: #4a5062;
+  --vz-text-muted: #828a9e;
+  --vz-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --vz-shadow-md: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: var(--vz-font-family);
+  background-color: var(--vz-bg);
+  color: var(--vz-text-primary);
+  overflow-x: hidden;
+  font-size: 15px;
+  line-height: 1.45;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-bottom: calc(var(--vz-nav-height) + var(--vz-safe-bottom));
+}
+
+body.no-nav {
+  padding-bottom: var(--vz-safe-bottom);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+button {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ==========================================================================
+   EN-TÊTE SUPÉRIEURE (HEADER)
+   ========================================================================== */
+.vz-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--vz-header-height);
+  padding: 0 16px;
+  background: rgba(12, 13, 18, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--vz-border-light);
+  z-index: 100;
+  padding-top: var(--vz-safe-top);
+}
+
+[data-theme="light"] .vz-header {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.vz-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vz-logo-badge {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--vz-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px var(--vz-primary-glow);
+  position: relative;
+  overflow: hidden;
+}
+
+.vz-logo-badge svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+}
+
+.vz-brand-name {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  background: var(--vz-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.vz-brand-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--vz-primary);
+  display: inline-block;
+}
+
+.vz-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vz-icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--vz-radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vz-text-primary);
+  background: transparent;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.vz-icon-btn:hover, .vz-icon-btn:active {
+  background: var(--vz-surface);
+}
+
+.vz-icon-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.vz-badge-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--vz-primary);
+  border-radius: 50%;
+  border: 2px solid var(--vz-bg);
+}
+
+.vz-avatar-header {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid var(--vz-primary);
+  background: var(--vz-surface);
+}
+
+.vz-avatar-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   BARRE DE NAVIGATION INFÉRIEURE (BOTTOM NAV)
+   ========================================================================== */
+.vz-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--vz-nav-height) + var(--vz-safe-bottom));
+  padding-bottom: var(--vz-safe-bottom);
+  background: rgba(15, 17, 24, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--vz-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 100;
+}
+
+[data-theme="light"] .vz-bottom-nav {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.vz-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--vz-text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  width: 20%;
+  height: 100%;
+  transition: color 0.2s ease, transform 0.15s ease;
+  position: relative;
+}
+
+.vz-nav-item svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  transition: transform 0.2s ease;
+}
+
+.vz-nav-item.active {
+  color: var(--vz-primary);
+}
+
+.vz-nav-item.active svg {
+  transform: translateY(-2px);
+}
+
+/* Bouton Publier au centre */
+.vz-nav-upload {
+  position: relative;
+  top: -8px;
+}
+
+.vz-nav-upload .vz-upload-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--vz-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 18px var(--vz-primary-glow);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.vz-nav-upload .vz-upload-circle svg {
+  width: 26px;
+  height: 26px;
+  fill: #fff;
+}
+
+.vz-nav-upload:active .vz-upload-circle {
+  transform: scale(0.9);
+}
+
+/* ==========================================================================
+   BOUTONS & INTERACTION
+   ========================================================================== */
+.vz-btn {
+  height: 48px;
+  padding: 0 20px;
+  border-radius: var(--vz-radius-md);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.2px;
+  transition: all 0.2s ease;
+  width: auto;
+}
+
+.vz-btn-primary {
+  background: var(--vz-gradient);
+  color: #ffffff;
+  box-shadow: 0 4px 16px var(--vz-primary-glow);
+}
+
+.vz-btn-primary:active {
+  box-shadow: 0 2px 8px var(--vz-primary-glow);
+}
+
+.vz-btn-secondary {
+  background: var(--vz-surface);
+  color: var(--vz-text-primary);
+  border: 1px solid var(--vz-border);
+}
+
+.vz-btn-secondary:hover, .vz-btn-secondary:active {
+  background: var(--vz-surface-hover);
+}
+
+.vz-btn-outline {
+  background: transparent;
+  color: var(--vz-primary);
+  border: 1.5px solid var(--vz-primary);
+}
+
+.vz-btn-outline:active {
+  background: var(--vz-primary-soft);
+}
+
+.vz-btn-full {
+  width: 100%;
+}
+
+.vz-btn-sm {
+  height: 36px;
+  padding: 0 14px;
+  font-size: 13px;
+  border-radius: var(--vz-radius-sm);
+}
+
+.vz-btn-pill {
+  border-radius: var(--vz-radius-pill);
+}
+
+/* ==========================================================================
+   CHAMPS DE FORMULAIRE (INPUTS)
+   ========================================================================== */
+.vz-form-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vz-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vz-text-secondary);
+}
+
+.vz-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.vz-input-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--vz-text-muted);
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.vz-input-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.vz-input {
+  width: 100%;
+  height: 50px;
+  padding: 0 16px;
+  background: var(--vz-surface);
+  border: 1.5px solid var(--vz-border);
+  border-radius: var(--vz-radius-md);
+  color: var(--vz-text-primary);
+  font-size: 15px;
+  transition: all 0.2s ease;
+}
+
+.vz-input.has-icon {
+  padding-left: 44px;
+}
+
+.vz-input.has-trailing-icon {
+  padding-right: 44px;
+}
+
+.vz-input:focus {
+  border-color: var(--vz-primary);
+  box-shadow: 0 0 0 3px var(--vz-primary-soft);
+  background: var(--vz-bg-elevated);
+}
+
+.vz-trailing-btn {
+  position: absolute;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  color: var(--vz-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vz-input-error {
+  font-size: 12px;
+  color: var(--vz-error);
+  margin-top: 2px;
+  display: none;
+}
+
+.vz-input-error.visible {
+  display: block;
+}
+
+.vz-input.error {
+  border-color: var(--vz-error);
+}
+
+/* ==========================================================================
+   TOASTS & NOTIFICATIONS POPUP
+   ========================================================================== */
+.vz-toast-container {
+  position: fixed;
+  top: calc(var(--vz-safe-top) + 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 380px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.vz-toast {
+  background: var(--vz-surface);
+  color: var(--vz-text-primary);
+  border-left: 4px solid var(--vz-primary);
+  padding: 12px 16px;
+  border-radius: var(--vz-radius-sm);
+  box-shadow: var(--vz-shadow-md);
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  animation: vzSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  pointer-events: auto;
+}
+
+.vz-toast.success {
+  border-left-color: var(--vz-success);
+}
+
+.vz-toast.error {
+  border-left-color: var(--vz-error);
+}
+
+@keyframes vzSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   BANNER HORS LIGNE (OFFLINE)
+   ========================================================================== */
+.vz-offline-banner {
+  display: none;
+  background: #d50000;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  text-align: center;
+  position: sticky;
+  top: var(--vz-header-height);
+  z-index: 99;
+}
+
+.vz-offline-banner.visible {
+  display: block;
+  animation: vzFadeIn 0.3s ease;
+}
+
+@keyframes vzFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ==========================================================================
+   MODAL / POPUP
+   ========================================================================== */
+.vz-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 500;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s ease;
+}
+
+.vz-modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.vz-modal-sheet {
+  background: var(--vz-bg-elevated);
+  width: 100%;
+  max-width: 540px;
+  max-height: 85vh;
+  border-radius: 24px 24px 0 0;
+  padding: 20px 20px calc(var(--vz-safe-bottom) + 20px);
+  overflow-y: auto;
+  border-top: 1px solid var(--vz-border);
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vz-modal-backdrop.active .vz-modal-sheet {
+  transform: translateY(0);
+}
+
+.vz-modal-handle {
+  width: 44px;
+  height: 5px;
+  background: var(--vz-border);
+  border-radius: 4px;
+  margin: 0 auto 16px;
+}
+
+.vz-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.vz-modal-title {
+  font-size: 18px;
+  font-weight: 700;
+}
